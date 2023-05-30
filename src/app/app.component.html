@@ -1,0 +1,29 @@
+<div class="wrapper">
+  <h1>Your check-in details</h1>
+  <form class="form">
+    <div class="accordion">
+      <div *ngFor="let accordion of accordions; let i = index;" class="form__group"
+        [ngClass]="accordion.expand ? '' : 'accordion-closed'">
+        <fieldset>
+          <legend class="accordion__header" (click)="onAccordionHeaderClick(i)">
+            <span>{{accordion.name}}</span>
+            <button aria-label="Toggle accordion" class="arrow" (click)="$event.preventDefault()">
+            </button>
+          </legend>
+          <div class="accordion__content">
+            <input *ngFor="let input of accordion.fields" [type]="input.name" [ariaLabel]="input.label"
+              [placeholder]="input.placeholder || input.label"
+              [ngClass]="input.halfWidth ? ['input__halfWidth', input.renderPosition] : ''"
+              [attr.inputmode]="input.type || 'text'">
+          </div>
+        </fieldset>
+        <div *ngIf="accordion.content" class="group__content">
+          {{accordion.content}}
+        </div>
+      </div>
+    </div>
+    <div class="form__submit">
+      <button>Save</button>
+    </div>
+  </form>
+</div>
